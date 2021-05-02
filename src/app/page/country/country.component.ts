@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CountryService } from 'src/app/page/country/country.service';
 import { Country } from 'src/app/page/country/country.model';
+import { Page } from 'src/app/shared/model/pagina.model';
+import { Indicator } from 'src/app/page/country/Indicator.model';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-country',
@@ -11,10 +14,27 @@ export class CountryComponent implements OnInit {
   countries: Country[] = [];
   countrySelect: Country | null = null;
   isDialogOpen = true;
+  indicadorPage: Page<Indicator> = {
+    page: 0,
+    pageTotal: 0,
+    pageSize: 0,
+    total: 0,
+    list: [],
+  };
 
   constructor(
     private readonly countryService: CountryService,
   ) {
+  }
+
+  ngOnInit(): void {
+    this.countryService.listCountry()
+      .subscribe(countries => this.countries = countries);
+    this.countryService.$newCountry
+      .pipe(
+        filter(newCountry => newCountry)
+      )
+      .subscribe(newCountry => this.isDialogOpen = newCountry);
   }
 
   get tooltipText(): string {
@@ -25,16 +45,19 @@ export class CountryComponent implements OnInit {
     return '';
   }
 
-  ngOnInit(): void {
-    this.countryService.listCountry()
-      .subscribe(countries => this.countries = countries);
-  }
-
   onCountrySelected(): void {
     this.countryService.searchIndicatorByCountry(this.countrySelect?.id)
       .subscribe(indicador => {
-        console.log('INDICA: ', indicador);
         this.isDialogOpen = false;
+        this.indicadorPage = indicador;
       });
+  }
+
+  onPageChange({ page, rows }: { first: number, page: number, pageCount: number, rows: number }): void {
+    const pageAdded = ++page;
+    this.countryService.searchIndicatorByCountry(this.countrySelect?.id, {
+      page: pageAdded.toString(),
+      pageSize: rows?.toString(),
+    }).subscribe(indicator => this.indicadorPage = indicator);
   }
 }

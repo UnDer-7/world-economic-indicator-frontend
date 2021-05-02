@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { Country } from 'src/app/page/country/country.model';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { map } from 'rxjs/operators';
@@ -13,10 +13,15 @@ import { Indicator } from 'src/app/page/country/Indicator.model';
 })
 export class CountryService {
   private readonly resourceUrl = `${ environment.apiEndpoint }/countries`;
+  public readonly $newCountry = new Subject<boolean>();
 
   constructor(
     private readonly http: HttpClient,
   ) {
+  }
+
+  selectNewCountry(): void {
+    this.$newCountry.next(true);
   }
 
   listCountry(): Observable<Country[]> {

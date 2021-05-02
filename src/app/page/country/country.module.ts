@@ -11,6 +11,10 @@ import { FormsModule } from '@angular/forms';
 import { TooltipModule } from 'primeng/tooltip';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
 
+import {TableModule} from 'primeng/table';
+import { PanelModule } from 'primeng/panel';
+import { PaginatorModule } from 'primeng/paginator';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -21,6 +25,9 @@ import { DynamicDialogModule } from 'primeng/dynamicdialog';
     FormsModule,
     TooltipModule,
     DynamicDialogModule,
+    TableModule,
+    PanelModule,
+    PaginatorModule,
   ],
   declarations: [
     CountryComponent,

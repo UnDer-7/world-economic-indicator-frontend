@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { CountryService } from 'src/app/page/country/country.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+  constructor(
+    public readonly countryService: CountryService,
+  ) {
+  }
   title = 'world-economic-indicator-frontend';
 }

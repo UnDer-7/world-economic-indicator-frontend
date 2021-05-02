@@ -1,7 +1,3 @@
-<span>
-  Cideade selecionada:
-</span>
-
 <p-dialog header="Selecione um país"
           [visible]="isDialogOpen"
           [contentStyle]="{minHeight: '355px'}"
@@ -29,3 +25,32 @@
     </button>
   </p-footer>
 </p-dialog>
+
+<div class="card">
+  <p-table [value]="indicadorPage.list">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Data</th>
+        <th>País</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-indicator>
+      <tr>
+        <td>{{indicator?.date}}</td>
+        <td>{{indicator?.country?.name}}</td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="footer">
+      <tr>
+        <td></td>
+        <td>
+          <p-paginator [rows]="indicadorPage.pageSize"
+                       [totalRecords]="indicadorPage.total"
+                       [rowsPerPageOptions]="[10, 20, 30]"
+                       (onPageChange)="onPageChange($event)"
+          ></p-paginator>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
