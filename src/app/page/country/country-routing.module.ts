@@ -1,15 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { CountryComponent } from 'src/app/page/country/country.component';
 
 const routes: Routes = [
   {
     path: '',
-    loadChildren: () => import('./page/country/country.module').then(m => m.CountryModule)
+    component: CountryComponent,
   }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class CountryRoutingModule { }

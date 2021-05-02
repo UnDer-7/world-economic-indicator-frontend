@@ -1,0 +1,31 @@
+<span>
+  Cideade selecionada:
+</span>
+
+<p-dialog header="Selecione um país"
+          [visible]="isDialogOpen"
+          [contentStyle]="{minHeight: '355px'}"
+          [style]="{minWidth: '76vw'}"
+          [baseZIndex]="10000"
+          [modal]="true"
+>
+  <p-dropdown optionLabel="name"
+              placeholder="Selecione um país"
+              filterBy="id,name"
+              [style]="{'width':'100%'}"
+              [options]="countries"
+              [(ngModel)]="countrySelect"
+              [filter]="true"
+              [showClear]="true"
+  ></p-dropdown>
+
+  <p-footer>
+    <button pButton
+            label="Buscar"
+            [pTooltip]="tooltipText"
+            [disabled]="!countrySelect"
+            (click)="onCountrySelected()"
+    >
+    </button>
+  </p-footer>
+</p-dialog>
