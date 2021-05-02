@@ -32,12 +32,15 @@
       <tr>
         <th>Data</th>
         <th>País</th>
+        <th>Porcentagem</th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-indicator>
       <tr>
         <td>{{indicator?.date}}</td>
         <td>{{indicator?.country?.name}}</td>
+        <td *ngIf="indicator?.value">{{indicator?.value}}</td>
+        <td *ngIf="!indicator?.value">Não Informado</td>
       </tr>
     </ng-template>
     <ng-template pTemplate="footer">
