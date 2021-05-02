@@ -7,7 +7,9 @@ import { AppComponent } from './app.component';
 import {ToolbarModule} from 'primeng/toolbar';
 import { ButtonModule } from 'primeng/button';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { ProgressBarModule } from 'primeng/progressbar';
+import { LoadingInterceptor } from 'src/app/config/interceptor/loading.interceptor';
 
 @NgModule({
   declarations: [
@@ -20,8 +22,15 @@ import { HttpClientModule } from '@angular/common/http';
     AppRoutingModule,
     ToolbarModule,
     ButtonModule,
+    ProgressBarModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LoadingInterceptor,
+      multi: true,
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

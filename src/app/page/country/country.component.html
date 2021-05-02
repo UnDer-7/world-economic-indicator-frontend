@@ -46,8 +46,10 @@
     <ng-template pTemplate="footer">
       <tr>
         <td></td>
+        <td></td>
         <td>
-          <p-paginator [rows]="indicadorPage.pageSize"
+          <p-paginator #paginator
+                       [rows]="indicadorPage.pageSize"
                        [totalRecords]="indicadorPage.total"
                        [rowsPerPageOptions]="[10, 20, 30]"
                        (onPageChange)="onPageChange($event)"

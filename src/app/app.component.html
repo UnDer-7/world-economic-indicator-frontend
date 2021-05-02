@@ -1,3 +1,8 @@
+<p-progressBar mode="indeterminate"
+               [style]="{'height': '6px'}"
+               *ngIf="loadingService.$isLoading | async"
+>
+</p-progressBar>
 <div class="header">
   <span>Indicador situação de extrema pobreza no mundo</span>
   <p-button label="Selecionar novo pais" (click)="countryService.selectNewCountry()"></p-button>

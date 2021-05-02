@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { CountryService } from 'src/app/page/country/country.service';
 import { Country } from 'src/app/page/country/country.model';
 import { Page } from 'src/app/shared/model/pagina.model';
 import { Indicator } from 'src/app/page/country/Indicator.model';
 import { filter } from 'rxjs/operators';
+import { Paginator } from 'primeng/paginator';
 
 @Component({
   selector: 'app-country',
@@ -21,6 +22,9 @@ export class CountryComponent implements OnInit {
     total: 0,
     list: [],
   };
+
+  @ViewChild('paginator', { static: true })
+  paginator!: Paginator;
 
   constructor(
     private readonly countryService: CountryService,
@@ -54,7 +58,7 @@ export class CountryComponent implements OnInit {
   }
 
   onPageChange({ page, rows }: { first: number, page: number, pageCount: number, rows: number }): void {
-    const pageAdded = ++page;
+    const pageAdded = page + 1;
     this.countryService.searchIndicatorByCountry(this.countrySelect?.id, {
       page: pageAdded.toString(),
       pageSize: rows?.toString(),
